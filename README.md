@@ -13,6 +13,107 @@
 คำตอบ:
 ```
 ?
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ex.pkg1;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.json.simple.JSONArray;
+
+/**
+ *
+ * @author UserONEz
+ */
+public class Ex1 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws Exception {
+
+        //parsing file "data.json".
+        JSONParser parser = new JSONParser();
+
+        try {
+            //find "data.json".
+            JSONArray ja = (JSONArray) parser.parse(new FileReader("C:\\Users\\UserONEz\\Desktop\\test\\ex.1\\src\\data.json"));
+
+            long Average = 0, max = -100, min = 100;
+            String minScore = null, maxScore = null;
+
+            System.out.println("1.1 หาคะแนนเฉลี่ย **score** ของนักเรียน");
+            //loop for data in array.
+            for (Object data : ja) {
+                JSONObject Datas = (JSONObject) data;
+                //get all score in array.
+                long Score = (long) Datas.get("score");
+                Average = Average + Score;
+            }
+            System.out.println("ค่าเฉลี่ยคะแนนของนักเรียน = " + Average / 6);
+            System.out.println();
+            System.out.println(".......................................................");
+            System.out.println();
+
+            System.out.println("1.2 แสดงชื่อและเกรดของนักเรียนที่ได้คะแนนมากว่า 70 ขึ้นไป");
+            System.out.println();
+            for (Object data : ja) {
+                JSONObject Datas = (JSONObject) data;
+                //get all name in array.
+                String Name = (String) Datas.get("name");
+                long Score = (long) Datas.get("score");
+                if (Score > 70) {
+                    System.out.println("นักเรียนที่มีคะแนนมากกว่า 70 ได้แก่ : " + Name);
+                }
+
+            }
+            System.out.println("......................................................");
+            System.out.println();
+
+            System.out.println("1.3 ค้นหาชื่อนักเรียนที่มีคะแนนมากที่สุดและต่ำที่สุด **score**");
+            System.out.println();
+            for (Object data : ja) {
+                JSONObject Datas = (JSONObject) data;
+                String Name = (String) Datas.get("name");
+                long Score = (long) Datas.get("score");
+
+                if (Score < min) {
+                    min = Score;//find min.
+                    minScore = Name;//keep name of min.
+                }
+
+                if (Score > max) {
+                    max = Score;//find max.
+                    maxScore = Name;//keep name of max.
+                }
+
+            }
+            System.out.println("นักเรียนที่มีคะแนนมากที่สุดคือ " + maxScore);
+            System.out.println("นักเรียนที่มีคะแนนต่ำที่สุดคือ " + minScore);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+
 ```
 
 ## 2. Create Simple Mobile Application
